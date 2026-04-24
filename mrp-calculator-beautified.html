@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MRP Change Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fb;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 520px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background: #4a6cf7;
+      color: white;
+    }
+    input {
+      width: 100px;
+      padding: 6px;
+      text-align: center;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .no {
+      background: #ffe5e5;
+      color: #d11a2a;
+      font-weight: bold;
+      border-radius: 6px;
+    }
+    .yes {
+      background: #e6ffed;
+      color: #0a7f2e;
+      font-weight: bold;
+      border-radius: 6px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .reset {
+      background: #ff4d4d;
+      color: white;
+    }
+    .calc {
+      background: #4a6cf7;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>MRP Change Ticketing</h2>
+
+  <table>
+    <tr>
+      <th>Old MRP</th>
+      <th>New MRP</th>
+      <th>Diff</th>
+      <th>% Diff</th>
+      <th>Raise Ticket</th>
+    </tr>
+    <tr>
+      <td><input id="old" type="number"></td>
+      <td><input id="new" type="number"></td>
+      <td id="diff">-</td>
+      <td id="pct">-</td>
+      <td id="result">-</td>
+    </tr>
+  </table>
+
+  <div class="buttons">
+    <button class="calc" onclick="calculate()">Calculate</button>
+    <button class="reset" onclick="reset()">Reset</button>
+  </div>
+</div>
+
+<script>
+function calculate() {
+  let oldVal = parseFloat(document.getElementById("old").value);
+  let newVal = parseFloat(document.getElementById("new").value);
+
+  if (isNaN(oldVal) || isNaN(newVal)) {
+    return;
+  }
+
+  let diff = newVal - oldVal;
+  let pct = diff / oldVal;
+
+  document.getElementById("diff").innerText = diff.toFixed(2);
+  document.getElementById("pct").innerText = (pct * 100).toFixed(2) + "%";
+
+  let resultCell = document.getElementById("result");
+
+  if (diff >= -1 && diff <= 1 && pct >= -0.05 && pct <= 0.05) {
+    resultCell.innerText = "NO";
+    resultCell.className = "no";
+  } else {
+    resultCell.innerText = "YES";
+    resultCell.className = "yes";
+  }
+}
+
+function reset() {
+  document.getElementById("old").value = "";
+  document.getElementById("new").value = "";
+  document.getElementById("diff").innerText = "-";
+  document.getElementById("pct").innerText = "-";
+  document.getElementById("result").innerText = "-";
+  document.getElementById("result").className = "";
+}
+</script>
+
+</body>
+</html>
