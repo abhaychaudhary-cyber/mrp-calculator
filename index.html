@@ -120,7 +120,7 @@ function calculate() {
 
   let resultCell = document.getElementById("result");
 
-  if (diff >= -1 && diff <= 1 && pct >= -0.05 && pct <= 0.05) {
+  if (diff >= -5 && diff <= 5 && pct >= -0.05 && pct <= 0.05) {
     resultCell.innerText = "NO";
     resultCell.className = "no";
   } else {
